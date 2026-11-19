@@ -3,7 +3,7 @@
 Raspberry Pi Pico W を使った **双方向クリップボード / URL ブリッジ + Stream Deck**。
 
 - スマホブラウザ: `http://<PicoのIP>/`
-- PC エージェント: クリップボード同期 + WASAPI 音声中継 (`:8081`)
+- PC エージェント: クリップボード同期 + WASAPI 音声中継 (`:8081`) + SwitchBot 鍵監視（5分ごと → 解錠なら Slack）
 
 ## 構成
 
@@ -22,6 +22,8 @@ cp pc/secrets.example.py pc/secrets.py
 ```
 
 `secrets.py` に Wi-Fi / AP / PC IP / Pico URL を書く（**リポジトリにはコミットしない**）。
+
+鍵監視を使う場合は `pc/secrets.py` に SwitchBot / Slack も書く（`SWITCHBOT_TOKEN`, `SWITCHBOT_CLIENT_SECRET`, `SLACK_WEBHOOK_URL`）。未設定なら鍵監視だけスキップする。
 
 ### 2. Pico へ転送
 

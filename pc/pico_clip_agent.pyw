@@ -11,6 +11,8 @@ from pathlib import Path
 
 import pyaudiowpatch as pyaudio
 
+from switchbot_lock_job import start_lock_check_thread
+
 
 def _load_secrets():
     path = Path(__file__).resolve().parent / "secrets.py"
@@ -209,6 +211,8 @@ def get_json(path):
 def main():
     # AudioRelay代替の低遅延WASAPI音声ストリーミングサーバーをポート8081で起動
     threading.Thread(target=audio_server_thread, daemon=True).start()
+    # SwitchBot 鍵監視（secrets に TOKEN 等があるときだけ起動）
+    start_lock_check_thread(_secrets)
 
     last_pc_text = ""
     last_seq = -1
